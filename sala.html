@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sala JM Elite Pro</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #050b14;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.sala-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at top, #12345c 0%, #07111f 50%, #030812 100%);
+}
+
+/* CABECERA */
+.sala-header {
+  height: 58px;
+  padding: 8px 12px;
+  background: rgba(3, 8, 18, 0.95);
+  border-bottom: 1px solid rgba(255, 215, 80, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: #f7d774;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.sala-title {
+  text-align: center;
+  flex: 1;
+}
+
+.sala-title h1 {
+  font-size: 16px;
+  color: #f7d774;
+}
+
+.sala-title p {
+  font-size: 10px;
+  color: #c8d6f0;
+}
+
+.live-dot {
+  width: 42px;
+  text-align: right;
+  font-size: 12px;
+  color: #2dff88;
+}
+
+/* CONTENIDO */
+.sala-main {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* TARJETA VIDEO */
+.live-card {
+  min-height: 42vh;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 215, 80, 0.24);
+  background:
+    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.65)),
+    url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: inset 0 -80px 90px rgba(0,0,0,0.65);
+}
+
+.host-box {
+  width: 100%;
+  padding: 16px;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #e83252;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.host-box h2 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.host-box p {
+  font-size: 13px;
+  color: #d9e5ff;
+}
+
+/* MICRÓFONOS */
+.mic-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.mic {
+  min-height: 72px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 215, 80, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #d9e5ff;
+}
+
+.mic span {
+  font-size: 22px;
+}
+
+/* CHAT */
+.chat-box {
+  flex: 1;
+  min-height: 180px;
+  border-radius: 22px;
+  background: rgba(3, 8, 18, 0.86);
+  border: 1px solid rgba(255, 215, 80, 0.18);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-title {
+  font-size: 14px;
+  color: #f7d774;
+  margin-bottom: 8px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 150px;
+}
+
+.msg {
+  background: rgba(255,255,255,0.07);
+  padding: 8px 10px;
+  border-radius: 13px;
+  color: #e8f0ff;
+}
+
+.msg strong {
+  color: #f7d774;
+}
+
+.chat-input {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+}
+
+.chat-input button {
+  width: 48px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f7d774, #b98725);
+  color: #07111f;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* BARRA INFERIOR */
+.sala-actions {
+  height: 64px;
+  padding: 8px 10px;
+  background: rgba(3, 8, 18, 0.95);
+  border-top: 1px solid rgba(255, 215, 80, 0.22);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.sala-actions button {
+  border: none;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  color: #f7d774;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+@media (max-width: 380px) {
+  .host-box h2 {
+    font-size: 20px;
+  }
+
+  .mic {
+    min-height: 64px;
+  }
+
+  .messages {
+    max-height: 120px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sala-app">
+
+  <header class="sala-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+
+    <div class="sala-title">
+      <h1>Sala JM Elite</h1>
+      <p>Directo oficial de la agencia</p>
+    </div>
+
+    <div class="live-dot">● LIVE</div>
+  </header>
+
+  <main class="sala-main">
+
+    <section class="live-card">
+      <div class="host-box">
+        <div class="status">● EN VIVO</div>
+        <h2>Bienvenidos a la Sala</h2>
+        <p>Espacio oficial para comunicación, apoyo y conexión con la agencia.</p>
+      </div>
+    </section>
+
+    <section class="mic-row">
+      <div class="mic"><span>🎙️</span>Host</div>
+      <div class="mic"><span>➕</span>Libre</div>
+      <div class="mic"><span>➕</span>Libre</div>
+      <div class="mic"><span>➕</span>Libre</div>
+    </section>
+
+    <section class="chat-box">
+      <div class="chat-title">💬 Chat de la sala</div>
+
+      <div class="messages" id="messages">
+        <div class="msg"><strong>Agencia:</strong> Bienvenidos a la sala oficial JM Elite.</div>
+        <div class="msg"><strong>Sistema:</strong> Usa este espacio para avisos y comunicación rápida.</div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="chatText" placeholder="Escribe un mensaje...">
+        <button onclick="sendMessage()">➤</button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="sala-actions">
+    <button onclick="gift()">🎁<br>Regalo</button>
+    <button onclick="micRequest()">🎙️<br>Micro</button>
+    <button onclick="rules()">📜<br>Normas</button>
+    <button onclick="support()">🛟<br>Ayuda</button>
+  </nav>
+
+        </div>
+        <script>
+function goHome() {
+  window.location.href = "index.html";
+}
+
+function sendMessage() {
+  const input = document.getElementById("chatText");
+  const messages = document.getElementById("messages");
+
+  const text = input.value.trim();
+
+  if (text === "") {
+    return;
+  }
+
+  const newMsg = document.createElement("div");
+  newMsg.className = "msg";
+  newMsg.innerHTML = "<strong>Tú:</strong> " + text;
+
+  messages.appendChild(newMsg);
+  messages.scrollTop = messages.scrollHeight;
+
+  input.value = "";
+}
+
+function gift() {
+  alert("Zona de regalos próximamente.");
+}
+
+function micRequest() {
+  alert("Solicitud de micrófono enviada.");
+}
+
+function rules() {
+  alert("Normas de la sala próximamente.");
+}
+
+function support() {
+  alert("Abriendo soporte.");
+}
+</script>
+
+</body>
+</html>
