@@ -1,632 +1,318 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sala JM Elite Pro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agencia JM Elite - Sala</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#020713;
-  color:white;
+body {
+  font-family: Arial, sans-serif;
+  background: #07111f;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.app{
-  width:100%;
-  max-width:430px;
-  height:100vh;
-  margin:auto;
+/* PANTALLA PRINCIPAL */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background:
-    radial-gradient(circle at top,#0a2a5e 0%,#031025 42%,#020713 100%);
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
+    radial-gradient(circle at top, #12345c 0%, #07111f 55%, #030812 100%);
 }
 
-/* ARRIBA */
-.top{
-  height:74px;
-  padding:10px 12px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-shrink:0;
+/* CABECERA PEQUEÑA */
+.header {
+  height: 62px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(3, 8, 18, 0.88);
+  border-bottom: 1px solid rgba(255, 215, 80, 0.25);
+  position: relative;
+  z-index: 20;
 }
 
-.menu-btn,
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:15px;
-  border:1px solid rgba(80,150,255,.45);
-  background:rgba(0,0,0,.28);
-  color:white;
-  font-size:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.logoBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.logo{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  border:2px solid #d6a63d;
-  background:radial-gradient(circle,#102d5c,#020713);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ffd76b;
-  font-weight:900;
-  font-size:18px;
-  box-shadow:0 0 14px rgba(0,145,255,.5);
+.logoCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7d774, #b98725);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #07111f;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0 0 12px rgba(255, 215, 80, 0.45);
 }
 
-.title-box{
-  flex:1;
-  min-width:0;
+.headerText h1 {
+  font-size: 15px;
+  color: #f7d774;
+  line-height: 1.1;
 }
 
-.title-box h1{
-  font-size:19px;
-  line-height:1.1;
-  white-space:nowrap;
+.headerText p {
+  font-size: 10px;
+  color: #c8d6f0;
 }
 
-.title-box p{
-  margin-top:5px;
-  font-size:13px;
-  color:#83ff7b;
+/* BOTÓN TRES PUNTOS */
+.menuBtn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: #f7d774;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.top-right{
-  display:flex;
-  gap:8px;
+/* MENÚ DESPLEGABLE */
+.dropdown {
+  position: absolute;
+  top: 58px;
+  right: 10px;
+  width: 210px;
+  background: rgba(7, 17, 31, 0.98);
+  border: 1px solid rgba(255, 215, 80, 0.28);
+  border-radius: 16px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+  z-index: 50;
 }
 
-/* SALA */
-.room{
-  flex:1;
-  padding:4px 12px 8px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
+.dropdown.active {
+  display: flex;
 }
 
-.seats{
-  flex:1;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
-  min-height:0;
+.dropdown button {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  color: white;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.seat{
-  position:relative;
-  border-radius:14px;
-  border:1px solid rgba(215,166,55,.55);
+.dropdown button:hover {
+  background: rgba(247, 215, 116, 0.16);
+}
+
+/* SALA GRANDE */
+.room {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.roomHero {
+  flex: 1;
+  min-height: calc(100vh - 150px);
+  border-radius: 24px;
   background:
-    radial-gradient(circle at top,rgba(23,85,160,.45),transparent 55%),
-    rgba(2,10,26,.88);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height:0;
-  box-shadow:inset 0 0 18px rgba(0,0,0,.65);
-  cursor:pointer;
+    linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.58)),
+    url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80");
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 215, 80, 0.22);
+  box-shadow: inset 0 -80px 90px rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
-.seat.active{
-  border-color:#ff4bdf;
-  box-shadow:0 0 16px rgba(255,65,226,.7), inset 0 0 18px rgba(0,0,0,.65);
+.roomInfo {
+  width: 100%;
+  padding: 18px;
 }
 
-.num{
-  position:absolute;
-  top:4px;
-  right:8px;
-  width:23px;
-  height:23px;
-  border-radius:50%;
-  border:2px solid #e0ae3f;
-  background:#050505;
-  color:#ffe58a;
-  font-size:12px;
-  font-weight:bold;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2;
+.liveBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #e83252;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-.avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  border:3px solid #e0ae3f;
-  background:#07172f;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  margin-bottom:5px;
+.roomInfo h2 {
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 5px;
 }
 
-.name{
-  font-size:12px;
-  font-weight:bold;
-  max-width:74px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.roomInfo p {
+  font-size: 14px;
+  color: #d9e5ff;
+  max-width: 95%;
 }
 
-.state{
-  margin-top:2px;
-  font-size:10px;
-  color:#60ff62;
+/* BOTÓN PRINCIPAL */
+.enterBtn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f7d774, #b98725);
+  color: #07111f;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(247, 215, 116, 0.28);
 }
 
-.talking .state{
-  color:#20cfff;
+/* BARRA INFERIOR */
+.bottomBar {
+  height: 64px;
+  padding: 8px 10px;
+  background: rgba(3, 8, 18, 0.95);
+  border-top: 1px solid rgba(255, 215, 80, 0.22);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.muted .state{
-  color:#ff4a8d;
+.bottomBar button {
+  border: none;
+  background: transparent;
+  color: #c8d6f0;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
 }
 
-.empty .avatar{
-  opacity:.35;
+.bottomBar span {
+  font-size: 20px;
 }
 
-.empty .name{
-  color:#b9c6eb;
+.bottomBar button.active {
+  color: #f7d774;
 }
 
-/* CHAT */
-.chat{
-  height:132px;
-  margin-top:8px;
-  border-radius:18px;
-  border:1px solid rgba(55,135,255,.35);
-  background:rgba(0,0,0,.33);
-  padding:8px;
-  flex-shrink:0;
-}
+/* MÓVIL PEQUEÑO */
+@media (max-width: 380px) {
+  .headerText h1 {
+    font-size: 13px;
+  }
 
-.msg{
-  height:24px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
+  .headerText p {
+    font-size: 9px;
+  }
 
-.msg strong{
-  color:#ffd96a;
-  min-width:88px;
-}
+  .roomInfo h2 {
+    font-size: 21px;
+  }
 
-.input-row{
-  margin-top:8px;
-  display:flex;
-  gap:8px;
-}
-
-.input-row input{
-  flex:1;
-  height:38px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.09);
-  color:white;
-  padding:0 14px;
-  outline:none;
-}
-
-.gift{
-  width:48px;
-  height:38px;
-  border-radius:16px;
-  border:0;
-  background:linear-gradient(135deg,#ff38c9,#ff9b22);
-  color:white;
-  font-size:21px;
-}
-
-/* ABAJO */
-.bottom{
-  height:82px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:rgba(0,0,0,.62);
-  border-top:1px solid rgba(255,255,255,.1);
-  flex-shrink:0;
-}
-
-.nav{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  color:#d7e0ff;
-  font-size:11px;
-}
-
-.nav span{
-  font-size:23px;
-}
-
-.nav.active{
-  color:#ffd96a;
-  background:linear-gradient(to top,rgba(124,39,255,.5),transparent);
-  border-radius:16px;
-  margin:8px 4px;
-  border:1px solid rgba(169,82,255,.65);
-}
-
-/* PANEL DESPLEGABLE */
-.side-panel{
-  position:fixed;
-  top:0;
-  right:-82%;
-  width:82%;
-  max-width:350px;
-  height:100vh;
-  background:#061025;
-  border-left:1px solid rgba(214,166,61,.55);
-  z-index:20;
-  transition:.25s ease;
-  padding:18px;
-  box-shadow:-12px 0 30px rgba(0,0,0,.65);
-}
-
-.side-panel.show{
-  right:0;
-}
-
-.panel-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.panel-head h2{
-  font-size:20px;
-  color:#ffd96a;
-}
-
-.close-panel{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.06);
-  color:white;
-  font-size:24px;
-}
-
-.panel-option{
-  padding:16px 8px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  font-size:16px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.panel-option span{
-  color:#ffd96a;
-  font-size:24px;
-}
-
-/* MENÚ PERSONA */
-.person-menu{
-  position:fixed;
-  left:50%;
-  bottom:-100%;
-  transform:translateX(-50%);
-  width:92%;
-  max-width:390px;
-  background:#071226;
-  border:1px solid rgba(214,166,61,.6);
-  border-radius:22px 22px 0 0;
-  z-index:30;
-  padding:14px;
-  transition:.25s ease;
-  box-shadow:0 -15px 35px rgba(0,0,0,.7);
-}
-
-.person-menu.show{
-  bottom:0;
-}
-
-.person-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
-}
-
-.person-avatar{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  border:2px solid #d6a63d;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  background:#06132b;
-}
-
-.person-head h3{
-  font-size:17px;
-}
-
-.person-head p{
-  font-size:12px;
-  color:#9fb2e8;
-  margin-top:3px;
-}
-
-.options{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-
-.options button{
-  height:42px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.07);
-  color:white;
-  font-size:12px;
-}
-
-.options .admin{
-  color:#ffe28a;
-  border-color:rgba(214,166,61,.7);
-}
-
-.close-menu{
-  width:100%;
-  height:40px;
-  margin-top:10px;
-  border:0;
-  border-radius:13px;
-  background:#16233e;
-  color:white;
-}
-
-/* CAPA OSCURA */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:15;
-  display:none;
-}
-
-.overlay.show{
-  display:block;
-}
-
-/* MÓVILES PEQUEÑOS */
-@media(max-height:740px){
-  .top{height:66px;padding:7px 10px}
-  .logo{width:46px;height:46px;font-size:16px}
-  .title-box h1{font-size:17px}
-  .title-box p{font-size:12px}
-  .avatar{width:36px;height:36px;font-size:19px}
-  .name{font-size:11px}
-  .state{font-size:9px}
-  .chat{height:116px}
-  .bottom{height:76px}
+  .roomInfo p {
+    font-size: 13px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
-  <header class="top">
-    <button class="menu-btn" onclick="openPanel()">☰</button>
-
-    <div class="logo">JM</div>
-
-    <div class="title-box">
-      <h1>Sala JM Elite Pro 🛡️</h1>
-      <p>● En vivo · 👥 10</p>
+  <header class="header">
+    <div class="logoBox">
+      <div class="logoCircle">JM</div>
+      <div class="headerText">
+        <h1>Agencia JM Elite</h1>
+        <p>Sala oficial en directo</p>
+      </div>
     </div>
 
-    <div class="top-right">
-      <button class="icon-btn">🔔</button>
-      <button class="icon-btn" onclick="openPanel()">⋯</button>
+    <button class="menuBtn" onclick="toggleMenu()">⋮</button>
+
+    <div class="dropdown" id="dropdownMenu">
+      <button onclick="goTo('perfil')">👤 Mi perfil</button>
+      <button onclick="goTo('emisoras')">🎙️ Mis emisoras</button>
+      <button onclick="goTo('academia')">🎓 Academia</button>
+      <button onclick="goTo('pagos')">💰 Pagos</button>
+      <button onclick="goTo('ranking')">🏆 Ranking</button>
+      <button onclick="goTo('soporte')">🛟 Soporte</button>
     </div>
   </header>
 
   <main class="room">
-    <section class="seats">
-
-      <div class="seat active talking" onclick="openPerson('Yandira','Hablando','👩')">
-        <div class="num">1</div><div class="avatar">👩</div><div class="name">Yandira</div><div class="state">🎙️ Hablando</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Alexander','Conectado','👨')">
-        <div class="num">2</div><div class="avatar">👨</div><div class="name">Alexander</div><div class="state">● Conectado</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Jesús','Conectado','👑')">
-        <div class="num">3</div><div class="avatar">👑</div><div class="name">Jesús</div><div class="state">● Conectado</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Ruth','Conectada','👩')">
-        <div class="num">4</div><div class="avatar">👩</div><div class="name">Ruth</div><div class="state">● Conectada</div>
-      </div>
-
-      <div class="seat muted" onclick="openPerson('Melania','Silenciada','👩')">
-        <div class="num">5</div><div class="avatar">👩</div><div class="name">Melania</div><div class="state">🔇 Silenciada</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Bárbara','Conectada','👩')">
-        <div class="num">6</div><div class="avatar">👩</div><div class="name">Bárbara</div><div class="state">● Conectada</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Toñito','Conectado','👨')">
-        <div class="num">7</div><div class="avatar">👨</div><div class="name">Toñito</div><div class="state">● Conectado</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Agustín','Conectado','👨')">
-        <div class="num">8</div><div class="avatar">👨</div><div class="name">Agustín</div><div class="state">● Conectado</div>
-      </div>
-
-      <div class="seat talking" onclick="openPerson('Jorge','Hablando','👨')">
-        <div class="num">9</div><div class="avatar">👨</div><div class="name">Jorge</div><div class="state">🎙️ Hablando</div>
-      </div>
-
-      <div class="seat" onclick="openPerson('Ángel','Conectado','👨')">
-        <div class="num">10</div><div class="avatar">👨</div><div class="name">Ángel</div><div class="state">● Conectado</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 11','Libre','➕')">
-        <div class="num">11</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 12','Libre','➕')">
-        <div class="num">12</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 13','Libre','➕')">
-        <div class="num">13</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 14','Libre','➕')">
-        <div class="num">14</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 15','Libre','➕')">
-        <div class="num">15</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 16','Libre','➕')">
-        <div class="num">16</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 17','Libre','➕')">
-        <div class="num">17</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 18','Libre','➕')">
-        <div class="num">18</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 19','Libre','➕')">
-        <div class="num">19</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-      <div class="seat empty" onclick="openPerson('Asiento 20','Libre','➕')">
-        <div class="num">20</div><div class="avatar">➕</div><div class="name">LIBRE</div><div class="state">Disponible</div>
-      </div>
-
-    </section>
-
-    <section class="chat">
-      <div class="msg"><strong>Latinos Élite</strong> Bienvenidos a la sala 🔥🔥🔥</div>
-      <div class="msg"><strong>Flow Mix FM</strong> Gracias por el apoyo 🙌</div>
-      <div class="msg"><strong>Radio Élite</strong> Vamos con todo hoy 👑</div>
-
-      <div class="input-row">
-        <input placeholder="Escribe un mensaje..." />
-        <button class="gift">🎁</button>
+    <section class="roomHero">
+      <div class="roomInfo">
+        <div class="liveBadge">● EN VIVO</div>
+        <h2>Sala JM Elite</h2>
+        <p>Conecta con la agencia, revisa avisos importantes y entra a la sala principal desde un solo lugar.</p>
+        <button class="enterBtn" onclick="enterRoom()">Entrar a la sala</button>
       </div>
     </section>
   </main>
 
-  <nav class="bottom">
-    <div class="nav active"><span>💬</span>Chat</div>
-    <div class="nav"><span>🎮</span>Juegos</div>
-    <div class="nav"><span>🎙️</span>Pedir</div>
-    <div class="nav"><span>🎁</span>Regalos</div>
-    <div class="nav" onclick="openPanel()"><span>⋯</span>Más</div>
+  <nav class="bottomBar">
+    <button class="active" onclick="goTo('inicio')">
+      <span>🏠</span>
+      Inicio
+    </button>
+    <button onclick="goTo('chat')">
+      <span>💬</span>
+      Chat
+    </button>
+    <button onclick="goTo('avisos')">
+      <span>📢</span>
+      Avisos
+    </button>
+    <button onclick="goTo('perfil')">
+      <span>👤</span>
+      Perfil
+    </button>
   </nav>
 
 </div>
 
-<div class="overlay" id="overlay" onclick="closeAll()"></div>
-
-<aside class="side-panel" id="sidePanel">
-  <div class="panel-head">
-    <h2>Menú Sala</h2>
-    <button class="close-panel" onclick="closeAll()">×</button>
-  </div>
-
-  <div class="panel-option"><span>📢</span> Anuncios</div>
-  <div class="panel-option"><span>🏆</span> Ranking</div>
-  <div class="panel-option"><span>📡</span> Emisoras activas</div>
-  <div class="panel-option"><span>🛡️</span> Normas</div>
-  <div class="panel-option"><span>📅</span> Eventos</div>
-  <div class="panel-option"><span>🎓</span> Academia</div>
-  <div class="panel-option"><span>🎧</span> Soporte</div>
-  <div class="panel-option"><span>⚙️</span> Ajustes</div>
-</aside>
-
-<section class="person-menu" id="personMenu">
-  <div class="person-head">
-    <div class="person-avatar" id="personAvatar">👤</div>
-    <div>
-      <h3 id="personName">Usuario</h3>
-      <p id="personState">Estado</p>
-    </div>
-  </div>
-
-  <div class="options">
-    <button>👤 Ver perfil</button>
-    <button>➕ Seguir</button>
-    <button>💬 Mensaje privado</button>
-    <button>🎁 Regalo</button>
-    <button class="admin">🎙️ Abrir/Cerrar micro</button>
-    <button class="admin">🔇 Silenciar</button>
-    <button class="admin">⭐ Dar admin</button>
-    <button class="admin">⬇️ Bajar asiento</button>
-  </div>
-
-  <button class="close-menu" onclick="closeAll()">Cerrar</button>
-</section>
-
 <script>
-function openPanel(){
-  document.getElementById("sidePanel").classList.add("show");
-  document.getElementById("overlay").classList.add("show");
+function toggleMenu() {
+  const menu = document.getElementById("dropdownMenu");
+  menu.classList.toggle("active");
 }
 
-function openPerson(name,state,avatar){
-  document.getElementById("personName").innerText = name;
-  document.getElementById("personState").innerText = state;
-  document.getElementById("personAvatar").innerText = avatar;
-  document.getElementById("personMenu").classList.add("show");
-  document.getElementById("overlay").classList.add("show");
+function goTo(section) {
+  alert("Abriendo: " + section);
+  document.getElementById("dropdownMenu").classList.remove("active");
 }
 
-function closeAll(){
-  document.getElementById("sidePanel").classList.remove("show");
-  document.getElementById("personMenu").classList.remove("show");
-  document.getElementById("overlay").classList.remove("show");
+function enterRoom() {
+  alert("Entrando a la Sala JM Elite");
 }
 </script>
 
