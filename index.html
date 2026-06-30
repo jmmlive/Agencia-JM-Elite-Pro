@@ -1,179 +1,705 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sala JM Elite Pro</title>
 
-<title>Agencia JM Elite</title>
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+    }
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;max-width:100%;overflow-x:hidden}
-body{min-height:100vh;font-family:Arial,sans-serif;background:#020713;color:white}
-.hidden{display:none!important}
+    body{
+      min-height:100vh;
+      background:#030814;
+      color:white;
+      overflow-x:hidden;
+    }
 
-.auth-screen{
-  width:100%;min-height:100vh;padding:18px;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(circle at top,#0d58bd 0%,#061326 42%,#020713 100%);
-}
-.auth-card{
-  width:100%;max-width:430px;border-radius:24px;padding:22px 18px;
-  border:1px solid rgba(255,213,107,.55);
-  background:linear-gradient(180deg,rgba(5,20,45,.96),rgba(0,5,15,.96));
-  box-shadow:0 0 35px rgba(0,110,255,.45), inset 0 0 24px rgba(0,111,255,.18);
-}
-.auth-logo{text-align:center;margin-bottom:16px}
-.auth-logo img{width:142px;height:142px;object-fit:contain;border-radius:18px;display:block;margin:0 auto 10px}
-.auth-logo h1{font-family:Georgia,serif;font-size:22px;color:#ffd56b;letter-spacing:.8px}
-.auth-logo p{font-size:11px;color:#27aaff;letter-spacing:1.1px;margin-top:5px}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-.auth-tabs button,.auth-card button{
-  width:100%;min-height:42px;border:0;border-radius:14px;color:white;font-weight:bold;
-  background:linear-gradient(135deg,#0072ff,#00b7ff);box-shadow:0 0 14px rgba(0,110,255,.38);
-}
-.auth-tabs button.active{background:linear-gradient(135deg,#ffcc33,#ffe382);color:#08101c}
-.auth-card input,.auth-card select{
-  width:100%;padding:14px;margin:7px 0;border-radius:14px;border:1px solid rgba(0,130,255,.65);
-  background:#041022;color:white;font-size:15px;
-}
-.auth-card .gold{background:linear-gradient(135deg,#ffcc33,#ffe382);color:#08101c}
-.auth-card .red{background:linear-gradient(135deg,#ff3333,#9b0018)}
-.auth-card .ghost{background:transparent;border:1px solid rgba(255,213,107,.55);box-shadow:none;color:#ffd56b}
-.auth-card .small{font-size:12px;line-height:1.4;color:#cfe7ff;text-align:center;margin:10px 0}
-.auth-msg{min-height:22px;text-align:center;color:#ffd56b;font-size:13px;margin-top:8px}
-#recaptcha-container{margin:8px 0;display:flex;justify-content:center;transform:scale(.86);transform-origin:center}
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+      margin:0 auto;
+      background:
+        radial-gradient(circle at top, #123d8a 0%, #07152e 38%, #02050d 100%);
+      position:relative;
+      padding-bottom:95px;
+    }
 
-.app{width:100%;min-height:100vh;overflow-x:hidden;background:radial-gradient(circle at top,#0d58bd 0%,#061326 38%,#020713 100%);padding-bottom:72px}
-.topbar{width:100%;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(0,0,0,.82);border-bottom:1px solid rgba(0,130,255,.75);box-shadow:0 0 18px rgba(0,110,255,.35);position:sticky;top:0;z-index:100}
-.icon-btn{width:38px;height:38px;border-radius:12px;border:1px solid #168cff;background:#06162c;color:white;font-size:20px;box-shadow:0 0 12px rgba(0,110,255,.55)}
-.brand-title{text-align:center;min-width:0}.brand-title h1{font-family:Georgia,serif;font-size:14px;letter-spacing:.8px;white-space:nowrap}.brand-title p{font-size:8px;color:#27aaff;letter-spacing:1.2px;margin-top:3px;white-space:nowrap}
-.layout{width:100%;max-width:100%}
-.sidebar{width:225px;max-width:72vw;height:calc(100vh - 58px);position:fixed;top:58px;left:-240px;z-index:200;overflow-y:auto;padding:12px;background:radial-gradient(circle at top,#0c4fa8 0%,#061326 42%,#020713 100%);border-right:1px solid rgba(0,130,255,.85);box-shadow:10px 0 25px rgba(0,0,0,.6);transition:left .25s ease}.sidebar.open{left:0}
-.side-logo{text-align:center;padding:14px 0 12px;border-bottom:1px solid rgba(0,130,255,.45);margin-bottom:10px}.side-logo-img{width:138px;height:138px;object-fit:contain;display:block;margin:0 auto;border-radius:16px}
-.side-menu{display:flex;flex-direction:column;gap:7px}.side-menu button{width:100%;min-height:39px;border-radius:11px;border:1px solid rgba(0,125,255,.48);background:linear-gradient(90deg,#082145,#020914);color:white;text-align:left;padding:0 10px;font-size:12px;font-weight:bold}.side-menu button.active{background:linear-gradient(90deg,#0072ff,#003675);box-shadow:0 0 16px rgba(0,115,255,.7)}
-.content{width:100%;max-width:100%;padding:12px}.hero{width:100%;border-radius:18px;overflow:hidden;border:1px solid rgba(28,132,255,.55);background:linear-gradient(135deg,rgba(0,78,170,.35),rgba(0,0,0,.78));box-shadow:0 0 28px rgba(0,102,255,.35)}.hero-banner img{width:100%;height:auto;display:block}
-.notice{margin:12px 0;padding:12px;border-radius:14px;border:1px solid rgba(255,193,7,.55);background:linear-gradient(90deg,#1c1200,#06172c);display:flex;gap:10px;align-items:center}.notice .nicon{font-size:28px}.notice h3{color:#ffc94a;font-size:15px}.notice p{font-size:12px;color:#eaf4ff}.grid{width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{min-height:105px;border-radius:15px;border:1px solid rgba(255,198,65,.45);background:linear-gradient(180deg,#102644,#030813);box-shadow:inset 0 0 18px rgba(0,111,255,.25),0 0 12px rgba(0,80,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 6px}.card .emoji{font-size:28px;margin-bottom:7px}.card h3{font-size:12px;color:#ffd56b}.card p{font-size:10px;color:#dbeeff;margin-top:5px}
-.panel{display:none;margin-top:12px;border:1px solid rgba(0,130,255,.65);border-radius:15px;padding:14px;background:rgba(0,10,28,.82)}.panel.active{display:block}.panel h2{color:#ffd56b;margin-bottom:8px;font-size:19px}.panel p{font-size:13px;line-height:1.5;color:#e6f2ff}.panel input,.panel textarea,.panel select{width:100%;padding:12px;margin:7px 0;border-radius:12px;border:1px solid rgba(0,130,255,.65);background:#041022;color:white}.panel button{width:100%;min-height:40px;border:0;border-radius:12px;margin:6px 0;color:white;font-weight:bold;background:linear-gradient(135deg,#0072ff,#00b7ff)}.panel button.gold{background:linear-gradient(135deg,#ffcc33,#ffe382);color:#08101c}.panel button.red{background:linear-gradient(135deg,#ff3333,#9b0018)}
-.profile-item{padding:10px;margin:8px 0;border-radius:12px;background:#06162c;border:1px solid rgba(0,130,255,.38);font-size:13px}.profile-item strong{color:#ffd56b}
-.bottom{position:fixed;left:0;right:0;bottom:0;width:100%;height:62px;background:rgba(0,5,15,.97);border-top:1px solid rgba(0,130,255,.75);display:flex;justify-content:space-around;align-items:center;z-index:150}.bottom button{background:none;border:0;color:#a8b4c5;font-size:11px}.bottom button span{display:block;font-size:21px;margin-bottom:3px}.bottom button.active{color:#168cff}.overlay{display:none;position:fixed;inset:58px 0 0 0;background:rgba(0,0,0,.45);z-index:180}.overlay.show{display:block}
-</style>
+    .topbar{
+      height:78px;
+      padding:14px 16px 8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:linear-gradient(to bottom, rgba(0,0,0,.85), transparent);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      border:2px solid #d5a747;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#050505;
+      color:#ffd96a;
+      font-weight:900;
+      font-size:18px;
+      box-shadow:0 0 18px rgba(0,150,255,.5);
+    }
+
+    .brand-text h1{
+      font-size:16px;
+      color:#fff;
+      line-height:1.1;
+    }
+
+    .brand-text p{
+      font-size:11px;
+      color:#c9d7ff;
+      margin-top:3px;
+    }
+
+    .top-icons{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .mini-avatar{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      border:2px solid #d5a747;
+      background:linear-gradient(135deg,#333,#111);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:15px;
+    }
+
+    .close-btn{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      background:rgba(0,0,0,.35);
+    }
+
+    .status-row{
+      display:flex;
+      gap:8px;
+      padding:0 14px 8px;
+      overflow-x:auto;
+    }
+
+    .pill{
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(0,0,0,.35);
+      padding:7px 12px;
+      border-radius:20px;
+      font-size:13px;
+      white-space:nowrap;
+      color:#e7ecff;
+    }
+
+    .pill.gold{
+      background:linear-gradient(135deg,#3d2603,#9b6a10);
+      color:#fff0b8;
+      border-color:#d5a747;
+    }
+
+    .room{
+      position:relative;
+      min-height:575px;
+      padding:10px 12px 0;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(0,140,255,.45), transparent 23%),
+        linear-gradient(to bottom, rgba(255,255,255,.03), transparent);
+    }
+
+    .ceiling{
+      width:250px;
+      height:70px;
+      margin:0 auto 4px;
+      border-radius:50%;
+      border:3px solid #1d8dff;
+      box-shadow:
+        0 0 18px #0095ff,
+        inset 0 0 20px rgba(0,149,255,.8);
+      position:relative;
+    }
+
+    .ceiling:after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:38px;
+      border-radius:50%;
+      border:2px solid #d5a747;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 18px rgba(255,200,90,.65);
+    }
+
+    .side-panels{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+    }
+
+    .panel{
+      width:48%;
+      background:rgba(0,0,0,.43);
+      border:1px solid rgba(213,167,71,.45);
+      border-radius:14px;
+      padding:9px;
+      box-shadow:0 0 18px rgba(0,0,0,.6);
+      min-height:105px;
+    }
+
+    .panel h3{
+      color:#ffd96a;
+      font-size:12px;
+      margin-bottom:7px;
+      text-align:center;
+    }
+
+    .panel-item{
+      font-size:10.5px;
+      padding:6px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      color:#eaf0ff;
+    }
+
+    .panel-item:last-child{
+      border-bottom:0;
+    }
+
+    .panel-item span{
+      display:block;
+      color:#7eff8b;
+      font-size:9px;
+      margin-top:2px;
+    }
+
+    .stage{
+      width:100%;
+      min-height:135px;
+      border-radius:22px;
+      background:
+        linear-gradient(to bottom, rgba(7,15,35,.85), rgba(0,0,0,.25)),
+        radial-gradient(circle at center, rgba(255,210,95,.16), transparent 45%);
+      border:1px solid rgba(213,167,71,.38);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:12px;
+      box-shadow:
+        inset 0 0 40px rgba(0,0,0,.75),
+        0 0 25px rgba(0,120,255,.3);
+    }
+
+    .host-chair{
+      width:96px;
+      height:96px;
+      border-radius:50%;
+      border:3px solid #d5a747;
+      background:linear-gradient(135deg,#2b1d08,#080808);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:42px;
+      box-shadow:0 0 25px rgba(255,208,90,.45);
+      position:relative;
+    }
+
+    .host-chair:after{
+      content:"ANFITRIONA";
+      position:absolute;
+      bottom:-23px;
+      background:linear-gradient(135deg,#30104a,#8d34c9);
+      border-radius:12px;
+      padding:4px 10px;
+      font-size:10px;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.25);
+    }
+
+    .host-name{
+      margin-top:28px;
+      font-size:16px;
+      color:#fff;
+      font-weight:bold;
+    }
+
+    .host-fire{
+      font-size:12px;
+      color:#ffc247;
+      margin-top:3px;
+    }
+
+    .seats{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:10px 7px;
+      padding:0 4px;
+    }
+
+    .seat{
+      min-height:76px;
+      border-radius:17px 17px 12px 12px;
+      background:linear-gradient(to bottom,#102044,#050811);
+      border:1px solid rgba(213,167,71,.45);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      box-shadow:
+        inset 0 -10px 18px rgba(0,0,0,.6),
+        0 0 12px rgba(0,100,255,.22);
+      cursor:pointer;
+    }
+
+    .seat-num{
+      position:absolute;
+      top:-9px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:#070707;
+      border:1px solid #d5a747;
+      color:#ffe28a;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+    }
+
+    .seat-avatar{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:2px solid #d5a747;
+      background:linear-gradient(135deg,#2c2c2c,#050505);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      margin-bottom:5px;
+    }
+
+    .seat-name{
+      font-size:10px;
+      color:#fff;
+      text-align:center;
+      max-width:72px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .seat-state{
+      font-size:8px;
+      color:#6cff8a;
+      margin-top:2px;
+    }
+
+    .seat.empty .seat-avatar{
+      opacity:.35;
+      border-color:rgba(255,255,255,.25);
+    }
+
+    .seat.empty .seat-name{
+      color:#9ca7c5;
+    }
+
+    .seat.speaking{
+      box-shadow:
+        0 0 18px rgba(0,149,255,.75),
+        inset 0 -10px 18px rgba(0,0,0,.6);
+      border-color:#3bb7ff;
+    }
+
+    .chat-area{
+      padding:8px 14px 0;
+    }
+
+    .message{
+      background:rgba(0,0,0,.38);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:8px 10px;
+      font-size:12px;
+      margin-bottom:6px;
+      color:#fff;
+    }
+
+    .message strong{
+      color:#ffd96a;
+      margin-right:6px;
+    }
+
+    .input-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:8px;
+    }
+
+    .input-row input{
+      flex:1;
+      height:44px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.09);
+      padding:0 15px;
+      color:white;
+      outline:none;
+      font-size:13px;
+    }
+
+    .gift{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:0;
+      background:linear-gradient(135deg,#ff5bd7,#8731ff);
+      color:white;
+      font-size:20px;
+    }
+
+    .bottom-nav{
+      position:fixed;
+      left:50%;
+      bottom:0;
+      transform:translateX(-50%);
+      width:100%;
+      max-width:430px;
+      height:82px;
+      background:rgba(2,5,13,.96);
+      border-top:1px solid rgba(255,255,255,.12);
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      z-index:50;
+      backdrop-filter:blur(10px);
+    }
+
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      color:#c8d2f0;
+      font-size:11px;
+    }
+
+    .nav-item .ico{
+      font-size:23px;
+    }
+
+    .nav-item.active{
+      color:#ffd96a;
+      background:linear-gradient(to top, rgba(93,47,190,.55), transparent);
+      border-radius:18px;
+      margin:9px 5px;
+      border:1px solid rgba(124,84,255,.65);
+    }
+
+    .person-menu{
+      position:fixed;
+      left:50%;
+      bottom:90px;
+      transform:translateX(-50%);
+      width:92%;
+      max-width:390px;
+      background:#071022;
+      border:1px solid rgba(213,167,71,.55);
+      border-radius:22px;
+      box-shadow:0 0 35px rgba(0,0,0,.85);
+      z-index:100;
+      padding:15px;
+      display:none;
+    }
+
+    .person-menu.show{
+      display:block;
+    }
+
+    .menu-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .menu-avatar{
+      width:55px;
+      height:55px;
+      border-radius:50%;
+      background:#111;
+      border:2px solid #d5a747;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:25px;
+    }
+
+    .menu-head h3{
+      font-size:16px;
+    }
+
+    .menu-head p{
+      color:#95a8d8;
+      font-size:12px;
+      margin-top:3px;
+    }
+
+    .menu-options{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+    }
+
+    .menu-options button{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.07);
+      color:white;
+      border-radius:13px;
+      padding:10px 8px;
+      font-size:12px;
+    }
+
+    .menu-options button.admin{
+      border-color:#d5a747;
+      color:#ffe18c;
+    }
+
+    .close-menu{
+      margin-top:10px;
+      width:100%;
+      height:38px;
+      border:0;
+      border-radius:13px;
+      background:#18243b;
+      color:#dce6ff;
+    }
+  </style>
 </head>
 <body>
 
-<section id="authScreen" class="auth-screen">
-  <div class="auth-card">
-    <div class="auth-logo">
-      <img src="agencia-jm-logo-800.png" alt="Logo Agencia JM">
-      <h1>AGENCIA JM ELITE</h1>
-      <p>ACCESO PRIVADO · AZUL Y ORO</p>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">JM</div>
+      <div class="brand-text">
+        <h1>Agencia JM Élite</h1>
+        <p>ID: 8888888 · 🔥 23.5K</p>
+      </div>
     </div>
 
-    <div class="auth-tabs">
-      <button id="tabLogin" class="active" onclick="authVista('login')">Entrar</button>
-      <button id="tabRegistro" onclick="authVista('registro')">Crear cuenta</button>
+    <div class="top-icons">
+      <div class="mini-avatar">👩</div>
+      <div class="mini-avatar">👑</div>
+      <div class="close-btn">×</div>
     </div>
+  </header>
 
-    <div id="loginBox">
-      <input id="loginEmail" type="email" placeholder="Correo electrónico">
-      <input id="loginPassword" type="password" placeholder="Contraseña">
-      <button class="gold" onclick="iniciarSesionEmail()">🔐 Iniciar sesión</button>
-      <button class="ghost" onclick="recuperarPassword()">¿Olvidaste tu contraseña?</button>
-      <p class="small">También dejamos preparado el acceso por teléfono con código SMS.</p>
-      <input id="phoneNumber" type="tel" placeholder="Teléfono con código, ejemplo +34600000000">
-      <div id="recaptcha-container"></div>
-      <button onclick="enviarCodigoTelefono()">📱 Enviar código SMS</button>
-      <input id="phoneCode" placeholder="Código SMS">
-      <button onclick="confirmarCodigoTelefono()">✅ Confirmar código</button>
-    </div>
-
-    <div id="registroBox" class="hidden">
-      <input id="regNombre" placeholder="Nombre completo">
-      <input id="regEmail" type="email" placeholder="Correo electrónico">
-      <input id="regPassword" type="password" placeholder="Contraseña mínimo 6 caracteres">
-      <input id="regPoppoId" placeholder="ID Poppo">
-      <select id="regPais">
-        <option value="Cuba">Cuba</option><option value="España">España</option><option value="Venezuela">Venezuela</option><option value="Colombia">Colombia</option><option value="Otro">Otro</option>
-      </select>
-      <button class="gold" onclick="registrarUsuario()">📝 Crear cuenta</button>
-      <p class="small">Las cuentas nuevas entran como emisora. El creador se reconoce por su correo oficial.</p>
-    </div>
-
-    <div id="authMsg" class="auth-msg"></div>
+  <div class="status-row">
+    <div class="pill">📶 Sala en vivo</div>
+    <div class="pill">🏆 Ranking</div>
+    <div class="pill gold">🔥 Top Emisoras</div>
   </div>
-</section>
 
-<div id="app" class="app hidden">
-<header class="topbar">
-  <button class="icon-btn" onclick="toggleMenu()">☰</button>
-  <div class="brand-title"><h1>AGENCIA TENERIFE JMM</h1><p>DISCIPLINA · ENFOQUE · RESULTADOS</p></div>
-  <button class="icon-btn" onclick="showPanel('avisos')">🔔</button>
-</header>
+  <main class="room">
 
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
-<div class="layout">
-<aside class="sidebar" id="sidebar">
-  <div class="side-logo"><img src="file_00000000971871f48b6a36f7fcf68d51.png" class="side-logo-img" alt="Logo Agencia JM"></div>
-  <div class="side-menu">
-    <button class="active" onclick="showPanel('inicio')">🏠 INICIO</button><button onclick="showPanel('panel')">▦ PANEL PRINCIPAL</button><button onclick="showPanel('perfil')">👤 MI PERFIL</button><button onclick="showPanel('emisoras')">📡 MIS EMISORAS</button><button onclick="showPanel('academia')">🎓 ACADEMIA JMM</button><button onclick="showPanel('pagos')">💰 PAGOS Y BONOS</button><button onclick="showPanel('ranking')">🏆 RANKING TOP</button><button onclick="showPanel('avisos')">🔔 AVISOS</button><button onclick="showPanel('normas')">📜 REGLAS Y NORMAS</button><button onclick="showPanel('soporte')">🎧 SOPORTE</button><button onclick="cerrarSesion()">🚪 CERRAR SESIÓN</button>
+    <div class="ceiling"></div>
+
+    <section class="side-panels">
+      <div class="panel">
+        <h3>ANUNCIOS</h3>
+        <div class="panel-item">⭐ Evento especial <span>Hoy 9:00 PM</span></div>
+        <div class="panel-item">🎁 Bonificación activa <span>Hasta 12:00 AM</span></div>
+        <div class="panel-item">👑 Nuevas emisoras <span>¡Bienvenidas!</span></div>
+      </div>
+
+      <div class="panel">
+        <h3>EMISORAS ACTIVAS</h3>
+        <div class="panel-item">Latinos Élite <span>🔥 24.5K</span></div>
+        <div class="panel-item">Flow Mix FM <span>🔥 18.7K</span></div>
+        <div class="panel-item">Radio Élite FM <span>🔥 16.2K</span></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="host-chair">👩‍💼</div>
+      <div class="host-name">Ruth María</div>
+      <div class="host-fire">🔥 98.5K · Anfitriona</div>
+    </section>
+
+    <section class="seats" id="seats">
+      <div class="seat speaking" onclick="openMenu('Yandira', 'Hablando', '👩')">
+        <div class="seat-num">1</div><div class="seat-avatar">👩</div><div class="seat-name">Yandira</div><div class="seat-state">🎤 Hablando</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Alexander', 'Conectado', '👨')">
+        <div class="seat-num">2</div><div class="seat-avatar">👨</div><div class="seat-name">Alexander</div><div class="seat-state">🟢 Conectado</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Iker', 'Conectado', '👨')">
+        <div class="seat-num">3</div><div class="seat-avatar">👨</div><div class="seat-name">Iker</div><div class="seat-state">🟢 Conectado</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Cande', 'Conectada', '👩')">
+        <div class="seat-num">4</div><div class="seat-avatar">👩</div><div class="seat-name">Cande</div><div class="seat-state">🟢 Conectada</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Melania', 'Silenciada', '👩')">
+        <div class="seat-num">5</div><div class="seat-avatar">👩</div><div class="seat-name">Melania</div><div class="seat-state">🔇 Silenciada</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Bárbara', 'Conectada', '👩')">
+        <div class="seat-num">6</div><div class="seat-avatar">👩</div><div class="seat-name">Bárbara</div><div class="seat-state">🟢 Conectada</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Toñito', 'Conectado', '👨')">
+        <div class="seat-num">7</div><div class="seat-avatar">👨</div><div class="seat-name">Toñito</div><div class="seat-state">🟢 Conectado</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Agustín', 'Conectado', '👨')">
+        <div class="seat-num">8</div><div class="seat-avatar">👨</div><div class="seat-name">Agustín</div><div class="seat-state">🟢 Conectado</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Jorge', 'Hablando', '👨')">
+        <div class="seat-num">9</div><div class="seat-avatar">👨</div><div class="seat-name">Jorge</div><div class="seat-state">🎤 Hablando</div>
+      </div>
+
+      <div class="seat" onclick="openMenu('Ángel', 'Conectado', '👨')">
+        <div class="seat-num">10</div><div class="seat-avatar">👨</div><div class="seat-name">Ángel</div><div class="seat-state">🟢 Conectado</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 11', 'Libre', '➕')">
+        <div class="seat-num">11</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 12', 'Libre', '➕')">
+        <div class="seat-num">12</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 13', 'Libre', '➕')">
+        <div class="seat-num">13</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 14', 'Libre', '➕')">
+        <div class="seat-num">14</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 15', 'Libre', '➕')">
+        <div class="seat-num">15</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 16', 'Libre', '➕')">
+        <div class="seat-num">16</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 17', 'Libre', '➕')">
+        <div class="seat-num">17</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 18', 'Libre', '➕')">
+        <div class="seat-num">18</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 19', 'Libre', '➕')">
+        <div class="seat-num">19</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+
+      <div class="seat empty" onclick="openMenu('Asiento 20', 'Libre', '➕')">
+        <div class="seat-num">20</div><div class="seat-avatar">➕</div><div class="seat-name">LIBRE</div><div class="seat-state">Disponible</div>
+      </div>
+    </section>
+  </main>
+
+  <section class="chat-area">
+    <div class="message"><strong>Latinos Élite</strong> Bienvenidos a la sala 🔥🔥🔥</div>
+    <div class="message"><strong>Flow Mix FM</strong> Gracias por el apoyo 🙌</div>
+    <div class="message"><strong>Radio Élite FM</strong> Vamos con todo hoy 👑</div>
+
+    <div class="input-row">
+      <input type="text" placeholder="Escribe un mensaje..." />
+      <button class="gift">🎁</button>
+    </div>
+  </section>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active"><div class="ico">🎮</div><span>Juegos</span></div>
+    <div class="nav-item"><div class="ico">🔔</div><span>Avisos</span></div>
+    <div class="nav-item"><div class="ico">🎁</div><span>Eventos</span></div>
+    <div class="nav-item"><div class="ico">👥</div><span>Invitar</span></div>
+    <div class="nav-item"><div class="ico">⋯</div><span>Más</span></div>
+  </nav>
+
+  <div class="person-menu" id="personMenu">
+    <div class="menu-head">
+      <div class="menu-avatar" id="menuAvatar">👤</div>
+      <div>
+        <h3 id="menuName">Usuario</h3>
+        <p id="menuState">Estado</p>
+      </div>
+    </div>
+
+    <div class="menu-options">
+      <button>👤 Ver perfil</button>
+      <button>➕ Seguir</button>
+      <button>💬 Mensaje privado</button>
+      <button>🎁 Enviar regalo</button>
+      <button class="admin">🎤 Abrir/Cerrar micro</button>
+      <button class="admin">🔇 Silenciar</button>
+      <button class="admin">⭐ Dar admin</button>
+      <button class="admin">⬇️ Bajar asiento</button>
+    </div>
+
+    <button class="close-menu" onclick="closeMenu()">Cerrar menú</button>
   </div>
-</aside>
 
-<main class="content">
-<section class="hero"><div class="hero-banner"><img src="file_00000000ea3871fdb1f5a962f6c6a80b.png" alt="Agencia JM Elite"></div></section>
-<section class="notice"><div class="nicon">📢</div><div><h3>AVISO IMPORTANTE</h3><p id="welcomeText">Revisa las nuevas normas, objetivos y comunicados de esta semana.</p></div></section>
-<section class="grid">
-  <div class="card" onclick="showPanel('perfil')"><div class="emoji">👤</div><h3>MI PERFIL</h3><p>Información personal</p></div><div class="card" onclick="showPanel('emisoras')"><div class="emoji">📡</div><h3>MIS EMISORAS</h3><p>Gestión del equipo</p></div><div class="card" onclick="showPanel('academia')"><div class="emoji">🎓</div><h3>ACADEMIA JMM</h3><p>Cursos y tareas</p></div><div class="card" onclick="showPanel('pagos')"><div class="emoji">💰</div><h3>PAGOS Y BONOS</h3><p>Comisiones y metas</p></div><div class="card" onclick="showPanel('ranking')"><div class="emoji">🏆</div><h3>RANKING TOP</h3><p>Top emisoras</p></div><div class="card" onclick="showPanel('avisos')"><div class="emoji">🔔</div><h3>AVISOS</h3><p>Noticias internas</p></div><div class="card" onclick="showPanel('normas')"><div class="emoji">📜</div><h3>REGLAS Y NORMAS</h3><p>Guía oficial</p></div><div class="card" onclick="showPanel('soporte')"><div class="emoji">🎧</div><h3>SOPORTE</h3><p>Ayuda técnica</p></div>
-</section>
-
-<section id="inicio" class="panel active"><h2>Inicio</h2><p>Bienvenido a Agencia JM Elite. Esta es la pantalla principal de control.</p></section>
-<section id="panel" class="panel"><h2>Panel Principal</h2><p id="panelResumen">Resumen general de actividad, avisos y herramientas de administración.</p></section>
-<section id="perfil" class="panel"><h2>Mi Perfil</h2><div id="perfilDatos"></div><button class="gold" onclick="showPanel('editarPerfil')">✏️ Editar perfil</button></section>
-<section id="editarPerfil" class="panel"><h2>Editar Perfil</h2><input id="editTelefono" placeholder="Teléfono"><input id="editWhatsapp" placeholder="WhatsApp"><input id="editInstagram" placeholder="Instagram"><input id="editFacebook" placeholder="Facebook"><input id="editTikTok" placeholder="TikTok"><textarea id="editDescripcion" placeholder="Descripción personal"></textarea><button class="gold" onclick="guardarPerfil()">💾 Guardar cambios</button><button class="red" onclick="showPanel('perfil')">Cancelar</button></section>
-<section id="emisoras" class="panel"><h2>Mis Emisoras</h2><p>Listado y control de emisoras de la agencia.</p><div id="listaEmisoras"></div></section>
-<section id="academia" class="panel"><h2>Academia JMM</h2><p>Cursos, tareas, formación, normas y entrenamiento para nuevas emisoras.</p></section>
-<section id="pagos" class="panel"><h2>Pagos y Bonos</h2><p>Zona de pagos, bonos, comisiones, metas y registros.</p></section>
-<section id="ranking" class="panel"><h2>Ranking Top</h2><p>Clasificación de emisoras y resultados destacados.</p></section>
-<section id="avisos" class="panel"><h2>Avisos</h2><p>Comunicados importantes de la agencia.</p></section>
-<section id="normas" class="panel"><h2>Reglas y Normas</h2><p>Normas oficiales de Agencia Tenerife JMM.</p></section>
-<section id="soporte" class="panel"><h2>Soporte</h2><p>Área de ayuda para resolver dudas y problemas técnicos.</p></section>
-</main>
 </div>
 
-<nav class="bottom"><button class="active" onclick="showPanel('inicio')"><span>🏠</span>Inicio</button><button onclick="showPanel('panel')"><span>▦</span>Panel</button><button onclick="showPanel('emisoras')"><span>📡</span>Emisoras</button><button onclick="showPanel('academia')"><span>🎓</span>Academia</button><button onclick="showPanel('perfil')"><span>👤</span>Perfil</button></nav>
-</div>
+<script>
+  function openMenu(name, state, avatar){
+    document.getElementById("menuName").innerText = name;
+    document.getElementById("menuState").innerText = state;
+    document.getElementById("menuAvatar").innerText = avatar;
+    document.getElementById("personMenu").classList.add("show");
+  }
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-const firebaseConfig={apiKey:"AIzaSyBLjbeblx9a5cMb-iSEq4NfQu-5Sqtv63w",authDomain:"agencia-jm-8076e.firebaseapp.com",projectId:"agencia-jm-8076e",storageBucket:"agencia-jm-8076e.firebasestorage.app",messagingSenderId:"925714422714",appId:"1:925714422714:web:a62c6c30738e759ecf9b83",measurementId:"G-909H4ZD0MN"};
-const appFirebase=initializeApp(firebaseConfig);const auth=getAuth(appFirebase);const db=getFirestore(appFirebase);
-const CORREO_CREADOR="elpepolan35@gmail.com";let usuarioActual=null;let perfilActual=null;let confirmationResult=null;
-
-function msg(t){document.getElementById('authMsg').innerText=t||''}
-window.authVista=function(v){document.getElementById('loginBox').classList.toggle('hidden',v!=='login');document.getElementById('registroBox').classList.toggle('hidden',v!=='registro');document.getElementById('tabLogin').classList.toggle('active',v==='login');document.getElementById('tabRegistro').classList.toggle('active',v==='registro');msg('')}
-
-window.iniciarSesionEmail=async function(){const email=document.getElementById('loginEmail').value.trim().toLowerCase();const pass=document.getElementById('loginPassword').value.trim();if(!email||!pass){msg('Escribe correo y contraseña.');return}try{msg('Entrando...');await signInWithEmailAndPassword(auth,email,pass)}catch(e){msg('Error: '+traducirError(e.code,e.message))}}
-window.registrarUsuario=async function(){const nombre=document.getElementById('regNombre').value.trim();const email=document.getElementById('regEmail').value.trim().toLowerCase();const pass=document.getElementById('regPassword').value.trim();const poppoId=document.getElementById('regPoppoId').value.trim();const pais=document.getElementById('regPais').value;if(!nombre||!email||!pass||!poppoId){msg('Completa nombre, correo, contraseña e ID Poppo.');return}try{msg('Creando cuenta...');const cred=await createUserWithEmailAndPassword(auth,email,pass);const rol=email===CORREO_CREADOR?'creador':'emisora';await setDoc(doc(db,'usuarios',cred.user.uid),{uid:cred.user.uid,nombre,email,poppoId,pais,rol,nivel:'Pendiente',estado:'Activa',telefono:'',whatsapp:'',instagram:'',facebook:'',tiktok:'',descripcion:'',creado:serverTimestamp()});msg('Cuenta creada correctamente.')}catch(e){msg('Error: '+traducirError(e.code,e.message))}}
-window.recuperarPassword=async function(){const email=document.getElementById('loginEmail').value.trim().toLowerCase();if(!email){msg('Escribe tu correo primero.');return}try{await sendPasswordResetEmail(auth,email);msg('Te envié el correo para recuperar la contraseña.')}catch(e){msg('Error: '+traducirError(e.code,e.message))}}
-
-function prepararRecaptcha(){if(window.recaptchaVerifier)return;window.recaptchaVerifier=new RecaptchaVerifier(auth,'recaptcha-container',{size:'normal'});}
-window.enviarCodigoTelefono=async function(){const phone=document.getElementById('phoneNumber').value.trim();if(!phone.startsWith('+')){msg('Pon el teléfono con código de país. Ejemplo: +34600000000');return}try{prepararRecaptcha();msg('Enviando código...');confirmationResult=await signInWithPhoneNumber(auth,phone,window.recaptchaVerifier);msg('Código enviado por SMS.')}catch(e){msg('Error SMS: '+traducirError(e.code,e.message))}}
-window.confirmarCodigoTelefono=async function(){const code=document.getElementById('phoneCode').value.trim();if(!confirmationResult||!code){msg('Primero envía el SMS y luego escribe el código.');return}try{msg('Confirmando...');await confirmationResult.confirm(code)}catch(e){msg('Código incorrecto o caducado.')}}
-window.cerrarSesion=async function(){await signOut(auth)}
-
-onAuthStateChanged(auth,async(user)=>{if(!user){usuarioActual=null;perfilActual=null;document.getElementById('authScreen').classList.remove('hidden');document.getElementById('app').classList.add('hidden');return}usuarioActual=user;const ref=doc(db,'usuarios',user.uid);let snap=await getDoc(ref);if(!snap.exists()){await setDoc(ref,{uid:user.uid,nombre:user.displayName||user.email||user.phoneNumber||'Usuario',email:user.email||'',telefono:user.phoneNumber||'',poppoId:'Pendiente',pais:'Pendiente',rol:(user.email===CORREO_CREADOR?'creador':'emisora'),nivel:'Pendiente',estado:'Activa',whatsapp:'',instagram:'',facebook:'',tiktok:'',descripcion:'',creado:serverTimestamp()});snap=await getDoc(ref)}perfilActual=snap.data();document.getElementById('authScreen').classList.add('hidden');document.getElementById('app').classList.remove('hidden');cargarPanelUsuario();});
-
-function cargarPanelUsuario(){document.getElementById('welcomeText').innerText='Bienvenido, '+(perfilActual.nombre||perfilActual.email||perfilActual.telefono||'usuario')+' · Rol: '+(perfilActual.rol||'emisora');document.getElementById('panelResumen').innerText='Sesión iniciada como '+(perfilActual.rol||'emisora')+'. Desde aquí iremos activando cada módulo profesional.';cargarPerfil();cargarEmisoras();showPanel('inicio')}
-function cargarPerfil(){document.getElementById('perfilDatos').innerHTML=`<div class="profile-item"><strong>Nombre:</strong> ${perfilActual.nombre||''}</div><div class="profile-item"><strong>Correo:</strong> ${perfilActual.email||''}</div><div class="profile-item"><strong>Teléfono:</strong> ${perfilActual.telefono||''}</div><div class="profile-item"><strong>ID Poppo:</strong> ${perfilActual.poppoId||''}</div><div class="profile-item"><strong>País:</strong> ${perfilActual.pais||''}</div><div class="profile-item"><strong>Rol:</strong> ${perfilActual.rol||''}</div><div class="profile-item"><strong>Nivel:</strong> ${perfilActual.nivel||'Pendiente'}</div><div class="profile-item"><strong>Estado:</strong> ${perfilActual.estado||'Activa'}</div><div class="profile-item"><strong>WhatsApp:</strong> ${perfilActual.whatsapp||''}</div><div class="profile-item"><strong>Instagram:</strong> ${perfilActual.instagram||''}</div><div class="profile-item"><strong>Facebook:</strong> ${perfilActual.facebook||''}</div><div class="profile-item"><strong>TikTok:</strong> ${perfilActual.tiktok||''}</div><div class="profile-item"><strong>Bio:</strong> ${perfilActual.descripcion||''}</div>`;document.getElementById('editTelefono').value=perfilActual.telefono||'';document.getElementById('editWhatsapp').value=perfilActual.whatsapp||'';document.getElementById('editInstagram').value=perfilActual.instagram||'';document.getElementById('editFacebook').value=perfilActual.facebook||'';document.getElementById('editTikTok').value=perfilActual.tiktok||'';document.getElementById('editDescripcion').value=perfilActual.descripcion||'';}
-window.guardarPerfil=async function(){if(!usuarioActual)return;const datos={telefono:document.getElementById('editTelefono').value.trim(),whatsapp:document.getElementById('editWhatsapp').value.trim(),instagram:document.getElementById('editInstagram').value.trim(),facebook:document.getElementById('editFacebook').value.trim(),tiktok:document.getElementById('editTikTok').value.trim(),descripcion:document.getElementById('editDescripcion').value.trim()};await updateDoc(doc(db,'usuarios',usuarioActual.uid),datos);perfilActual={...perfilActual,...datos};cargarPerfil();showPanel('perfil');alert('Perfil actualizado correctamente.')}
-async function cargarEmisoras(){const lista=document.getElementById('listaEmisoras');lista.innerHTML='<p>Cargando emisoras...</p>';try{const snap=await getDocs(collection(db,'usuarios'));let html='';snap.forEach(d=>{const e=d.data();html+=`<div class="profile-item"><strong>${e.nombre||'Sin nombre'}</strong><br>ID Poppo: ${e.poppoId||''}<br>País: ${e.pais||''}<br>Rol: ${e.rol||''}<br>Estado: ${e.estado||''}</div>`});lista.innerHTML=html||'<p>No hay emisoras registradas todavía.</p>'}catch(e){lista.innerHTML='<p>No se pudo cargar la lista. Revisa permisos de Firestore.</p>'}}
-
-window.toggleMenu=function(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
-window.closeMenu=function(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
-window.showPanel=function(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));const panel=document.getElementById(id);if(panel)panel.classList.add('active');document.querySelectorAll('.side-menu button,.bottom button').forEach(b=>b.classList.remove('active'));closeMenu();window.scrollTo({top:0,behavior:'smooth'})}
-function traducirError(code,msgOriginal){const errores={'auth/invalid-email':'Correo no válido.','auth/missing-password':'Falta la contraseña.','auth/weak-password':'La contraseña debe tener mínimo 6 caracteres.','auth/email-already-in-use':'Ese correo ya está registrado.','auth/invalid-credential':'Correo o contraseña incorrectos.','auth/too-many-requests':'Demasiados intentos. Espera un poco.','auth/operation-not-allowed':'Ese método no está habilitado en Firebase.','auth/unauthorized-domain':'Este dominio no está autorizado en Firebase Authentication.'};return errores[code]||msgOriginal}
+  function closeMenu(){
+    document.getElementById("personMenu").classList.remove("show");
+  }
 </script>
+
 </body>
-</html>
+          </html>
