@@ -3,249 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Sala JM Elite Pro</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:#050b14;
+  color:white;
+  min-height:100vh;
+  overflow-x:hidden;
 }
-
-body {
-  font-family: Arial, sans-serif;
-  background: #050b14;
-  color: white;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-.sala-app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(circle at top, #12345c 0%, #07111f 50%, #030812 100%);
+.sala-app{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:radial-gradient(circle at top,#12345c 0%,#07111f 50%,#030812 100%);
 }
 
 /* CABECERA */
-.sala-header {
-  height: 58px;
-  padding: 8px 12px;
-  background: rgba(3, 8, 18, 0.95);
-  border-bottom: 1px solid rgba(255, 215, 80, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.sala-header{
+  height:62px;
+  padding:8px 12px;
+  background:rgba(3,8,18,.96);
+  border-bottom:1px solid rgba(255,215,80,.25);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
-
-.back-btn {
-  width: 38px;
-  height: 38px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  color: #f7d774;
-  font-size: 20px;
-  cursor: pointer;
+.back-btn,.menu-btn{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  color:#f7d774;
+  font-size:22px;
+  cursor:pointer;
 }
-
-.sala-title {
-  text-align: center;
-  flex: 1;
+.sala-title{text-align:center;flex:1}
+.sala-title h1{
+  font-size:17px;
+  color:#f7d774;
+  letter-spacing:.5px;
 }
-
-.sala-title h1 {
-  font-size: 16px;
-  color: #f7d774;
+.sala-title p{
+  font-size:10px;
+  color:#8fc6ff;
+  text-transform:uppercase;
 }
-
-.sala-title p {
-  font-size: 10px;
-  color: #c8d6f0;
-}
-
-.live-dot {
-  width: 42px;
-  text-align: right;
-  font-size: 12px;
-  color: #2dff88;
+.live-dot{
+  font-size:11px;
+  color:#2dff88;
+  background:rgba(45,255,136,.12);
+  border:1px solid rgba(45,255,136,.35);
+  padding:8px 10px;
+  border-radius:999px;
 }
 
 /* CONTENIDO */
-.sala-main {
-  flex: 1;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.sala-main{
+  flex:1;
+  padding:10px;
+  padding-bottom:78px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-/* TARJETA VIDEO */
-.live-card {
-  min-height: 42vh;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 215, 80, 0.24);
+/* PANTALLA PRINCIPAL */
+.screen-card{
+  min-height:34vh;
+  border-radius:24px;
+  border:1px solid rgba(255,215,80,.28);
   background:
-    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.65)),
-    url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80");
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  box-shadow: inset 0 -80px 90px rgba(0,0,0,0.65);
+    radial-gradient(circle at center,rgba(0,122,255,.35),rgba(0,0,0,.1) 35%,rgba(0,0,0,.72) 100%),
+    linear-gradient(135deg,#082241,#020812);
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  box-shadow:0 0 22px rgba(0,120,255,.25),inset 0 -80px 90px rgba(0,0,0,.7);
+}
+.screen-badge{
+  position:absolute;
+  top:14px;
+  left:14px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#e83252;
+  font-size:11px;
+  font-weight:bold;
+}
+.screen-options{
+  position:absolute;
+  top:14px;
+  right:14px;
+  border:none;
+  width:38px;
+  height:38px;
+  border-radius:14px;
+  background:rgba(255,255,255,.12);
+  color:#f7d774;
+  font-size:22px;
+  cursor:pointer;
+}
+.host-box{width:100%;padding:17px}
+.host-box h2{font-size:23px;margin-bottom:6px}
+.host-box p{font-size:13px;color:#d9e5ff;line-height:1.35}
+
+/* PANEL DESPLEGABLE */
+.panel{
+  display:none;
+  border-radius:20px;
+  background:rgba(3,8,18,.94);
+  border:1px solid rgba(255,215,80,.22);
+  padding:12px;
+}
+.panel.active{display:block}
+.panel h3{
+  color:#f7d774;
+  font-size:15px;
+  margin-bottom:10px;
+}
+.panel-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.panel button{
+  border:none;
+  border-radius:14px;
+  padding:12px 8px;
+  background:rgba(255,255,255,.08);
+  color:#e8f0ff;
+  font-size:12px;
+  cursor:pointer;
 }
 
-.host-box {
-  width: 100%;
-  padding: 16px;
+/* ESTADÍSTICAS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
-
-.status {
-  display: inline-block;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: #e83252;
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 8px;
+.stat{
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(0,132,255,.35);
+  padding:12px 6px;
+  text-align:center;
 }
-
-.host-box h2 {
-  font-size: 22px;
-  margin-bottom: 5px;
+.stat strong{
+  display:block;
+  color:#f7d774;
+  font-size:20px;
 }
-
-.host-box p {
-  font-size: 13px;
-  color: #d9e5ff;
+.stat span{
+  font-size:11px;
+  color:#d9e5ff;
 }
 
 /* MICRÓFONOS */
-.mic-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+.mic-section{
+  border-radius:22px;
+  background:rgba(3,8,18,.72);
+  border:1px solid rgba(0,132,255,.35);
+  padding:12px;
 }
-
-.mic {
-  min-height: 72px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255, 215, 80, 0.16);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 11px;
-  color: #d9e5ff;
+.section-title{
+  color:#f7d774;
+  font-size:16px;
+  margin-bottom:10px;
 }
-
-.mic span {
-  font-size: 22px;
+.mic-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
+.mic{
+  min-height:82px;
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(18,52,92,.8),rgba(3,8,18,.9));
+  border:1px solid rgba(255,215,80,.22);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-size:11px;
+  color:#d9e5ff;
+  cursor:pointer;
+}
+.mic span{font-size:24px}
+.mic strong{color:#f7d774;font-size:12px}
+.mic.host{border-color:#2dff88;box-shadow:0 0 14px rgba(45,255,136,.25)}
+.mic.admin{border-color:rgba(255,215,80,.45)}
 
 /* CHAT */
-.chat-box {
-  flex: 1;
-  min-height: 180px;
-  border-radius: 22px;
-  background: rgba(3, 8, 18, 0.86);
-  border: 1px solid rgba(255, 215, 80, 0.18);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
+.chat-box{
+  min-height:210px;
+  border-radius:22px;
+  background:rgba(3,8,18,.88);
+  border:1px solid rgba(255,215,80,.18);
+  padding:12px;
+  display:flex;
+  flex-direction:column;
 }
-
-.chat-title {
-  font-size: 14px;
-  color: #f7d774;
-  margin-bottom: 8px;
+.chat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
 }
-
-.messages {
-  flex: 1;
-  overflow-y: auto;
-  font-size: 13px;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  max-height: 150px;
+.chat-title{
+  font-size:15px;
+  color:#f7d774;
 }
-
-.msg {
-  background: rgba(255,255,255,0.07);
-  padding: 8px 10px;
-  border-radius: 13px;
-  color: #e8f0ff;
+.pin{
+  font-size:11px;
+  color:#d9e5ff;
+  background:rgba(255,255,255,.07);
+  padding:6px 9px;
+  border-radius:999px;
 }
-
-.msg strong {
-  color: #f7d774;
+.messages{
+  flex:1;
+  overflow-y:auto;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  max-height:170px;
 }
-
-.chat-input {
-  margin-top: 10px;
-  display: flex;
-  gap: 8px;
+.msg{
+  background:rgba(255,255,255,.07);
+  padding:8px 10px;
+  border-radius:13px;
+  color:#e8f0ff;
+  line-height:1.3;
 }
-
-.chat-input input {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  outline: none;
+.msg strong{color:#f7d774}
+.chat-input{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
 }
-
-.chat-input button {
-  width: 48px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #f7d774, #b98725);
-  color: #07111f;
-  font-size: 18px;
-  cursor: pointer;
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.1);
+  color:white;
+  outline:none;
+}
+.chat-input button{
+  width:50px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#f7d774,#b98725);
+  color:#07111f;
+  font-size:18px;
+  cursor:pointer;
 }
 
 /* BARRA INFERIOR */
-.sala-actions {
-  height: 64px;
-  padding: 8px 10px;
-  background: rgba(3, 8, 18, 0.95);
-  border-top: 1px solid rgba(255, 215, 80, 0.22);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+.sala-actions{
+  height:68px;
+  padding:8px 8px;
+  background:rgba(3,8,18,.96);
+  border-top:1px solid rgba(255,215,80,.22);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:30;
+}
+.sala-actions button{
+  border:none;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  color:#d9e5ff;
+  font-size:10px;
+  cursor:pointer;
+}
+.sala-actions button.active{
+  color:#f7d774;
+  background:rgba(0,132,255,.16);
 }
 
-.sala-actions button {
-  border: none;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.08);
-  color: #f7d774;
-  font-size: 11px;
-  cursor: pointer;
+/* MODAL */
+.modal-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.modal-bg.active{display:flex}
+.modal{
+  width:100%;
+  max-width:360px;
+  border-radius:24px;
+  background:#07111f;
+  border:1px solid rgba(255,215,80,.28);
+  padding:18px;
+}
+.modal h3{
+  color:#f7d774;
+  margin-bottom:10px;
+}
+.modal p{
+  color:#d9e5ff;
+  font-size:14px;
+  line-height:1.4;
+  margin-bottom:14px;
+}
+.modal-actions{
+  display:flex;
+  gap:8px;
+}
+.modal-actions button{
+  flex:1;
+  border:none;
+  border-radius:14px;
+  padding:12px;
+  cursor:pointer;
+}
+.ok{
+  background:linear-gradient(135deg,#f7d774,#b98725);
+  color:#07111f;
+}
+.cancel{
+  background:rgba(255,255,255,.1);
+  color:white;
 }
 
-@media (max-width: 380px) {
-  .host-box h2 {
-    font-size: 20px;
-  }
-
-  .mic {
-    min-height: 64px;
-  }
-
-  .messages {
-    max-height: 120px;
-  }
+@media(max-width:380px){
+  .host-box h2{font-size:20px}
+  .mic{min-height:72px}
+  .messages{max-height:140px}
 }
 </style>
 </head>
@@ -254,99 +361,254 @@ body {
 
 <div class="sala-app">
 
-  <header class="sala-header">
-    <button class="back-btn" onclick="goHome()">←</button>
+<header class="sala-header">
+  <button class="back-btn" onclick="goHome()">←</button>
 
-    <div class="sala-title">
-      <h1>Sala JM Elite</h1>
-      <p>Directo oficial de la agencia</p>
+  <div class="sala-title">
+    <h1>SALA JM ELITE</h1>
+    <p>Directo · Equipo · Comunidad</p>
+  </div>
+
+  <div class="live-dot">● LIVE</div>
+</header>
+
+<main class="sala-main">
+
+  <section class="screen-card" id="mainScreen">
+    <div class="screen-badge" id="screenBadge">● EN VIVO</div>
+    <button class="screen-options" onclick="togglePanel()">⋮</button>
+
+    <div class="host-box">
+      <h2 id="screenTitle">Sala oficial de la agencia</h2>
+      <p id="screenText">Pantalla principal para reuniones, formación, apoyo entre emisoras y comunicación directa con la agencia.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="controlPanel">
+    <h3>⚙️ Control de pantalla</h3>
+    <div class="panel-grid">
+      <button onclick="showHost()">👑 Mostrar host</button>
+      <button onclick="inviteToScreen()">📺 Invitar a pantalla</button>
+      <button onclick="shareScreen()">🖥️ Compartir pantalla</button>
+      <button onclick="stopScreen()">⛔ Quitar pantalla</button>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><strong>328</strong><span>Conectados</span></div>
+    <div class="stat"><strong>12</strong><span>Micrófonos</span></div>
+    <div class="stat"><strong>Nivel 37</strong><span>Sala Oficial</span></div>
+  </section>
+
+  <section class="mic-section">
+    <div class="section-title">🎙️ Micrófonos de la Sala</div>
+
+    <div class="mic-row">
+      <div class="mic host" onclick="selectMic('Jesús', 'Host')"><span>👑</span><strong>Host</strong>Jesús</div>
+      <div class="mic admin" onclick="selectMic('Ruth', 'Admin')"><span>🛡️</span><strong>Admin</strong>Ruth</div>
+      <div class="mic admin" onclick="selectMic('Yandira', 'Admin')"><span>🛡️</span><strong>Admin</strong>Yandira</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 4</div>
+
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 5</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 6</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 7</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 8</div>
+
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 9</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 10</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 11</div>
+      <div class="mic" onclick="micRequest()"><span>🎤</span><strong>Libre</strong>Plaza 12</div>
+    </div>
+  </section>
+
+  <section class="chat-box">
+    <div class="chat-top">
+      <div class="chat-title">💬 Chat de la sala</div>
+      <div class="pin">📌 Avisos</div>
     </div>
 
-    <div class="live-dot">● LIVE</div>
-  </header>
+    <div class="messages" id="messages">
+      <div class="msg"><strong>Agencia:</strong> Bienvenidos a la sala oficial JM Elite.</div>
+      <div class="msg"><strong>Sistema:</strong> La pantalla principal ya está preparada para host, invitaciones y compartir pantalla.</div>
+      <div class="msg"><strong>Recordatorio:</strong> Luego conectaremos Firebase para usuarios reales, micros y chat en vivo.</div>
+    </div>
 
-  <main class="sala-main">
+    <div class="chat-input">
+      <input type="text" id="chatText" placeholder="Escribe un mensaje..." onkeydown="enterSend(event)">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </section>
 
-    <section class="live-card">
-      <div class="host-box">
-        <div class="status">● EN VIVO</div>
-        <h2>Bienvenidos a la Sala</h2>
-        <p>Espacio oficial para comunicación, apoyo y conexión con la agencia.</p>
-      </div>
-    </section>
+</main>
 
-    <section class="mic-row">
-      <div class="mic"><span>🎙️</span>Host</div>
-      <div class="mic"><span>➕</span>Libre</div>
-      <div class="mic"><span>➕</span>Libre</div>
-      <div class="mic"><span>➕</span>Libre</div>
-    </section>
+<nav class="sala-actions">
+  <button onclick="goHome()">🏠<br>Inicio</button>
+  <button onclick="gift()">🎁<br>Regalos</button>
+  <button onclick="reactions()">❤️<br>Reacciones</button>
+  <button onclick="users()">👥<br>Usuarios</button>
+  <button class="active" onclick="micRequest()">🎙️<br>Micro</button>
+</nav>
 
-    <section class="chat-box">
-      <div class="chat-title">💬 Chat de la sala</div>
+</div>
 
-      <div class="messages" id="messages">
-        <div class="msg"><strong>Agencia:</strong> Bienvenidos a la sala oficial JM Elite.</div>
-        <div class="msg"><strong>Sistema:</strong> Usa este espacio para avisos y comunicación rápida.</div>
-      </div>
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitle">Aviso</h3>
+    <p id="modalText">Mensaje del sistema.</p>
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeModal()">Cerrar</button>
+      <button class="ok" id="modalOk" onclick="closeModal()">Aceptar</button>
+    </div>
+  </div>
+</div>
 
-      <div class="chat-input">
-        <input type="text" id="chatText" placeholder="Escribe un mensaje...">
-        <button onclick="sendMessage()">➤</button>
-      </div>
-    </section>
+<script>
+let selectedPerson = "Jesús";
 
-  </main>
-
-  <nav class="sala-actions">
-    <button onclick="gift()">🎁<br>Regalo</button>
-    <button onclick="micRequest()">🎙️<br>Micro</button>
-    <button onclick="rules()">📜<br>Normas</button>
-    <button onclick="support()">🛟<br>Ayuda</button>
-  </nav>
-
-        </div>
-        <script>
 function goHome() {
   window.location.href = "index.html";
+}
+
+function togglePanel() {
+  document.getElementById("controlPanel").classList.toggle("active");
+}
+
+function openModal(title, text, okAction) {
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalText").innerText = text;
+
+  const okBtn = document.getElementById("modalOk");
+  okBtn.onclick = function() {
+    closeModal();
+    if (typeof okAction === "function") {
+      okAction();
+    }
+  };
+
+  document.getElementById("modalBg").classList.add("active");
+}
+
+function closeModal() {
+  document.getElementById("modalBg").classList.remove("active");
 }
 
 function sendMessage() {
   const input = document.getElementById("chatText");
   const messages = document.getElementById("messages");
-
   const text = input.value.trim();
 
-  if (text === "") {
-    return;
-  }
+  if (text === "") return;
 
   const newMsg = document.createElement("div");
   newMsg.className = "msg";
-  newMsg.innerHTML = "<strong>Tú:</strong> " + text;
+  newMsg.innerHTML = "<strong>Tú:</strong> " + escapeHtml(text);
 
   messages.appendChild(newMsg);
   messages.scrollTop = messages.scrollHeight;
-
   input.value = "";
 }
 
-function gift() {
-  alert("Zona de regalos próximamente.");
+function enterSend(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function selectMic(name, role) {
+  selectedPerson = name;
+
+  openModal(
+    "Micrófono seleccionado",
+    name + " está en la posición de " + role + ". Puedes invitarla a la pantalla principal desde el panel de control.",
+    function(){}
+  );
+}
+
+function showHost() {
+  document.getElementById("screenBadge").innerText = "● HOST EN VIVO";
+  document.getElementById("screenTitle").innerText = "Jesús en pantalla principal";
+  document.getElementById("screenText").innerText = "El host controla la sala, los avisos, los turnos de micrófono y las invitaciones.";
+  addSystemMessage("Host mostrado en pantalla principal.");
+}
+
+function inviteToScreen() {
+  openModal(
+    "Invitar a pantalla",
+    "Se enviará una invitación a " + selectedPerson + ". En la versión con Firebase, ella deberá aceptar antes de aparecer en la pantalla.",
+    function() {
+      document.getElementById("screenBadge").innerText = "⏳ INVITACIÓN";
+      document.getElementById("screenTitle").innerText = "Invitación enviada a " + selectedPerson;
+      document.getElementById("screenText").innerText = "Esperando confirmación para subir a la pantalla principal.";
+      addSystemMessage("Invitación enviada a " + selectedPerson + " para subir a pantalla.");
+    }
+  );
+}
+
+function shareScreen() {
+  openModal(
+    "Compartir pantalla",
+    "Esta función queda integrada como base. En el navegador real se conectará con permisos de pantalla y Firebase/WebRTC.",
+    function() {
+      document.getElementById("screenBadge").innerText = "🖥️ PANTALLA";
+      document.getElementById("screenTitle").innerText = "Pantalla compartida activa";
+      document.getElementById("screenText").innerText = "Aquí se mostrará la pantalla compartida cuando conectemos la función real.";
+      addSystemMessage("Modo compartir pantalla activado.");
+    }
+  );
+}
+
+function stopScreen() {
+  document.getElementById("screenBadge").innerText = "● EN VIVO";
+  document.getElementById("screenTitle").innerText = "Sala oficial de la agencia";
+  document.getElementById("screenText").innerText = "Pantalla principal para reuniones, formación, apoyo entre emisoras y comunicación directa con la agencia.";
+  addSystemMessage("Pantalla principal restaurada.");
 }
 
 function micRequest() {
-  alert("Solicitud de micrófono enviada.");
+  openModal(
+    "Solicitud de micrófono",
+    "Solicitud de micrófono enviada. Cuando conectemos Firebase, el host podrá aceptar o rechazar la subida.",
+    function() {
+      addSystemMessage("Nueva solicitud de micrófono recibida.");
+    }
+  );
+}
+
+function gift() {
+  openModal("Regalos", "Zona de regalos preparada. Luego podrá conectarse con puntos, monedas o reconocimientos internos.");
+}
+
+function reactions() {
+  addSystemMessage("❤️ Reacción enviada a la sala.");
+}
+
+function users() {
+  openModal("Usuarios conectados", "Aquí aparecerá la lista real de usuarios conectados cuando conectemos Firebase.");
 }
 
 function rules() {
-  alert("Normas de la sala próximamente.");
+  openModal("Normas", "Normas de la sala próximamente.");
 }
 
 function support() {
-  alert("Abriendo soporte.");
+  openModal("Soporte", "Abriendo soporte de la agencia.");
+}
+
+function addSystemMessage(text) {
+  const messages = document.getElementById("messages");
+  const msg = document.createElement("div");
+  msg.className = "msg";
+  msg.innerHTML = "<strong>Sistema:</strong> " + escapeHtml(text);
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
 }
 </script>
 
 </body>
-</html>
+  </html>
